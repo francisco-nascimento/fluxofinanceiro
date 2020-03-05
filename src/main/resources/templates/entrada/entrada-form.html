@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="header :: headerBlock"></div>
+
+
+<body>
+
+	<!-- Table with panel -->
+	<div class="card card-cascade narrower">
+
+	<div th:replace="header :: navBar"></div>
+
+		<!--/Card image-->
+
+		<div class="px-4">
+
+			<div class="table-wrapper col-sm-12 col-md-8">
+				<h3>Conta: <span th:text="${session.contaAtiva.nomeConta}" th:unless="${session == null}"></span></h3>
+				<h4>Entrada</h4>
+				<form action="/inserirEntrada" method="post" th:object="${movimentacao}">
+				<input type="hidden" th:value="${session.contaAtiva.codigo}" name="conta">	
+ 					<input type="text" 
+						th:field="*{descricao}" placeholder="Descrição">			
+					<input type="date" 
+						th:field="*{dataMovimentacao}" placeholder="Data de movimentação">
+					<input type="number" step="0.01" 
+						th:field="*{valor}" placeholder="Valor"><br/>	
+					<!-- <input type="radio" name="tipoMovimentacao" th:value="0">Entrada
+					<input type="radio" name="tipoMovimentacao" th:value="1">Saída -->
+					<button type="submit" class="btn btn-secondary alert-warning" name="tipoMovimentacao" th:value="ENTRADA">Entrada</button>
+					<button type="submit" class="btn btn-secondary alert-warning" name="tipoMovimentacao" th:value="SAIDA">Saída</button>
+					<div th:if="${mensagem != null}" th:text="${mensagem}" class="alert-success"></div>
+					<div th:if="${#fields.hasErrors('*')}">
+						<ul>
+							<li th:each="erro : ${#fields.errors('*')}" th:text="${erro}"
+								class="alert-danger">
+						</ul>
+					</div>
+					
+				</form>
+				<hr />
+
+				<!--Table-->
+				<table class="table table-hover mb-0">
+
+					<!--Table head-->
+					<thead>
+						<tr>
+							<th class="th-lg">Valor</th>
+							<th class="th-lg">Data Movimentação</th>
+							<th class="th-lg">+++</th>
+						</tr>
+					</thead>
+					<!--Table head-->
+
+					<!--Table body-->
+					<tbody>
+						<tr th:each="entrada : ${listaEntradas}">
+							<td th:text="${#numbers.formatCurrency(entrada.valor)}"></td>
+							<td th:text="${#dates.format(entrada.dataMovimentacao, 'dd-MMM-yyyy')}"></td>
+							<td><a th:href="|editarEntrada?codigo=${entrada.codigo}|">Editar</a>
+							<a th:href="|removerEntrada?codigo=${entrada.codigo}|">Excluir</a>
+							</td>
+						</tr>
+
+					</tbody>
+					<!--Table body-->
+				</table>
+				<!--Table-->
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Table with panel -->
+
+
+</body>
+</html>

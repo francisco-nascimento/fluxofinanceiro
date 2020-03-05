@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="httP://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+<th:block th:fragment="headerBlock">
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		charset="UTF-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</th:block>
+
+<title>Finanças :: Home</title>
+
+</head>
+<body>
+	<th:block th:fragment="navBar">
+
+		<nav class="navbar navbar-expand-sm bg-light navbar-light"
+			th:fragment="header">
+			<!-- Brand -->
+			<a class="navbar-brand" href="/home">Fluxo de Caixa (<span th:if="${session.usuarioLogado != null}"
+								th:text="${session.usuarioLogado.nome}"></span>)</a>
+
+			<!-- Links -->
+			<ul class="navbar-nav">
+
+				<!-- Dropdown -->
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbardrop"
+					data-toggle="dropdown"> Cadastro </a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/formConta">Conta</a> <a
+							class="dropdown-item" href="/formEntrada">Entrada</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbardrop"
+					data-toggle="dropdown"> Relatórios </a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/formPesquisarEntradas">Filtrar
+							entradas</a>
+					</div></li>
+			</ul>
+			<ul class="nav navbar-right">
+				<li>
+					<form method="post" action="/logout">
+						<button type="submit">Sair
+						</button>
+					</form>
+				</li>
+			</ul>
+
+		</nav>
+
+	</th:block>
+	<!-- /.container -->
+
+
+</body>
+</html>

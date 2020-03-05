@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Finanças de Gilson : Home</title>
+<div th:replace="header :: headerBlock"></div>
+</head>
+
+</head>
+<body>
+
+	<div th:replace="header :: navBar"></div>
+
+	<div class="row">
+		<div class="col-sm-6" th:each="conta : ${listaContas}">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${conta.nomeConta}"></h5>
+					<p class="card-text">
+						Saldo: <span class="badge badge-light" th:text="${#numbers.formatCurrency(conta.saldo)}"></span>
+					</p>
+					<p class="card-text">
+						Última movimentação: <span class="badge badge-light"
+							th:text="${#dates.format(conta.dataUltimaAtualizacao, 'dd-MMM-yyyy')}"></span>
+					</p>
+					<a th:href="|entrarConta?codigo=${conta.codigo}|" class="btn btn-primary">Entrar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
